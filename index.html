@@ -86,7 +86,7 @@
       box-shadow: 0 0 10px white;
     }
 
-    /* 右上角导航菜单 - 使用nav标签和正确的定位 */
+    /* 右上角导航菜单 */
     nav {
       position: fixed;
       top: 20px;
@@ -101,6 +101,22 @@
       border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
+    
+    /* 左侧导航链接组 - 首页和服务器简介 */
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    
+    /* 右侧用户操作组 - 登录和注册 */
+    .nav-user {
+      display: flex;
+      gap: 8px;
+      margin-left: 8px;
+      padding-left: 8px;
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
     nav a {
       color: #1e293b;
       text-decoration: none;
@@ -111,9 +127,23 @@
       font-size: 15px;
       white-space: nowrap;
     }
-    nav a:hover {
+    
+    /* 普通导航链接悬停效果 */
+    .nav-links a:hover {
       background: #2563eb;
       color: white;
+    }
+    
+    /* 登录/注册按钮特殊样式 - 渐变背景 */
+    .nav-user a {
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    }
+    
+    .nav-user a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     }
 
     /* 移动端适配 */
@@ -122,21 +152,31 @@
         top: 10px;
         right: 10px;
         padding: 4px 8px;
+        flex-wrap: wrap;
+        max-width: calc(100% - 80px);
       }
       nav a {
         padding: 4px 10px;
         font-size: 13px;
       }
+      .nav-user {
+        margin-left: 4px;
+        padding-left: 4px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- 右上角导航菜单 - 使用nav标签 -->
+  <!-- 右上角导航菜单 - 使用nav标签，分左右两组 -->
   <nav>
-    <a href="https://starwyun.top/">首页</a>
-    <a href="https://starwyun.top/intro.html">服务器简介</a>
-    <a href="https://starwyun.top/login.html">登录<a>
-    <a href="https://starwyun.top/register.html">注册<a>
+    <div class="nav-links">
+      <a href="https://starwyun.top/">首页</a>
+      <a href="https://starwyun.top/intro.html">服务器简介</a>
+    </div>
+    <div class="nav-user">
+      <a href="https://starwyun.top/login.html">登录</a>
+      <a href="https://starwyun.top/register.html">注册</a>
+    </div>
   </nav>
 
   <!-- 左上角 Logo + 黑色斜体文字 (固定定位，不遮挡点击) -->
