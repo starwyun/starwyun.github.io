@@ -86,7 +86,7 @@
       box-shadow: 0 0 10px white;
     }
 
-    /* 右上角导航菜单 - 去除边框，纯毛玻璃效果 */
+    /* 右上角导航菜单 - 使用nav标签和正确的定位 */
     nav {
       position: fixed;
       top: 20px;
@@ -94,11 +94,11 @@
       z-index: 100;
       display: flex;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
       padding: 8px 16px;
       border-radius: 40px;
-      /* 移除边框 */
+      border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     nav a {
@@ -128,15 +128,10 @@
         font-size: 13px;
       }
     }
-
-    /* 整体内容下移，为导航栏留出空间 */
-    .main-content {
-      padding-top: 70px; /* 增加顶部内边距，使内容整体下移 */
-    }
   </style>
 </head>
 <body>
-  <!-- 右上角导航菜单 - 使用nav标签，无边框 -->
+  <!-- 右上角导航菜单 - 使用nav标签 -->
   <nav>
     <a href="https://starwyun.top/">首页</a>
     <a href="https://starwyun.top/intro.html">服务器简介</a>
@@ -150,7 +145,7 @@
   </div>
 
   <!-- 最外层背景白色 (后备色，仅在内容区外显示) -->
-  <div class="bg-white main-content">
+  <div class="bg-white">
     <!-- 相对定位容器：作为背景轮播的锚点 (原结构中的第一个relative) -->
     <div class="relative mr-auto ml-auto w-full flex flex-col items-center">
       
