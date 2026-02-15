@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>首页 - 星卫云服务器</title>
+  <!-- 网站图标 (favicon) - 更新路径到 /images 目录 -->
+  <link rel="icon" type="image/png" href="https://starwyun.top/images/logo.png">
+  <!-- 字体与图标库 (保持原样) -->
+  <link href="https://fonts.lug.ustc.edu.cn/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.lug.ustc.edu.cn/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.lug.ustc.edu.cn/css2?family=Nunito+Sans&amp;family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" integrity="sha512-apX8rFN/KxJW8rniQbkvzrshQ3KvyEH+4szT3Sno5svdr6E/CP0QE862yEeLBMUnCqLko8QaugGkzvWS7uNfFQ==" crossorigin="anonymous">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    /* ----- 背景轮播核心样式 (叠加在原有设计之上) ----- */
+    .slideshow {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;           /* 避免图片缩放时出现多余滚动 */
+      background-color: #1a1a1a;  /* 深色后备，图片加载前或出错时显示 */
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 3s ease-in-out;  /* 3秒渐变，平缓自然 */
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    /* 半透明白色遮罩层 (让文字更易读，同时透出背景) */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(255, 255, 255, 0.4);
+      z-index: 1;
+      pointer-events: none;       /* 让鼠标事件穿透到内容区的链接/按钮 */
+    }
+
+    /* 确保内容区位于遮罩之上，且可点击 */
+    .content-wrapper {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* 简易指示点 (放在遮罩之上，但不干扰点击) */
+    .bg-indicator {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      gap: 10px;
+      padding: 6px 14px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(3px);
+      border-radius: 40px;
+      pointer-events: none;
+    }
+    .bg-indicator span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      transition: all 0.3s;
+    }
+    .bg-indicator span.active-dot {
+      background: white;
+      transform: scale(1.3);
+      box-shadow: 0 0 10px white;
+    }
+
+    /* 右上角导航菜单 - 使用nav标签和正确的定位 */
+    nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    nav a {
+      color: #1e293b;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 30px;
+      transition: all 0.2s;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+    nav a:hover {
+      background: #2563eb;
+      color: white;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 640px) {
+      nav {
+        top: 10px;
+        right: 10px;
+        padding: 4px 8px;
+      }
+      nav a {
+        padding: 4px 10px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 右上角导航菜单 - 使用nav标签 -->
+  <nav>
+    <a href="https://starwyun.top/">首页</a>
+    <a href="https://starwyun.top/intro.html">服务器简介</a>
+    <a href="https://starwyun.top/contact.html">联系我们</a>
+    <a href="https://starwyun.top/activity.html">精彩活动</a>
+  </nav>
+
+  <!-- 左上角 Logo + 黑色斜体文字 (固定定位，不遮挡点击) -->
+  <div style="position: fixed; top: 20px; left: 20px; z-index: 100; display: flex; flex-direction: column; align-items: center; pointer-events: none;">
+    <img src="https://starwyun.top/images/logo.png" alt="星卫云服务器" style="width: 60px; height: auto;">
+    <span style="color: black; font-style: italic; font-weight: 500; font-size: 16px; margin-top: 4px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">星卫云</span>
+  </div>
+
+  <!-- 最外层背景白色 (后备色，仅在内容区外显示) -->
+  <div class="bg-white">
+    <!-- 相对定位容器：作为背景轮播的锚点 (原结构中的第一个relative) -->
+    <div class="relative mr-auto ml-auto w-full flex flex-col items-center">
+      
+      <!-- ===== 1. 背景轮播图层 (4张图片，路径更新到 /images 目录) ===== -->
+      <div class="slideshow" id="slideshow"></div>
+      
+      <!-- 半透明白色遮罩层 (保持文字对比度) -->
+      <div class="overlay"></div>
+      
+      <!-- 简易指示点 (显示当前图片序号，纯装饰) -->
+      <div class="bg-indicator" id="bgIndicator"></div>
+      <!-- ==================================== -->
+
+      <!-- 页面主要内容 (标题与简介) -->
+      <div class="relative mt-0 max-sm:mx-5 mb-10 ml-auto max-w-xl md:mx-auto sm:text-center lg:max-w-2xl md:mb-12 content-wrapper" style="z-index: 2;">
+        <div class="mt-0 mr-auto mb-6 ml-auto text-3xl font-bold leading-none tracking-tight text-gray-900 max-w-lg font-sans sm:text-4xl md:mx-auto">
+          <div class="pt-10 relative">
+            <p class="font-bold text-3xl inline tracking-tight relative font-sans sm:text-4xl sm:leading-none">星卫云服务器</p>
+          </div>
+        </div>
+        <p class="text-gray-700 text-base md:text-lg">想要原版纯净生存/生电/小游戏体验?星卫云，启动!<br>
+        <p>Java版支持1.8到1.21.X（推荐1.21+），无需模组，离线账号也能进，支持基岩版互通</p>
+        <span>进群后获得连接地址：</span><a href="https://qm.qq.com/q/AmlV46PJ9m" target="_blank" class="text-blue-600 underline">1027127033</a>
+        <p>服务器现启用白名单，进群后，在群内发送“@HuHoBot /添加白名单 &lt;玩家名&gt;”即可</p>
+      </div>
+
+      <!-- 三个特性卡片区域 -->
+      <div class="relative mt-0 max-sm:mx-5 mb-10 gap-8 row-gap-8 flex sm:max-w-xl md:max-w-screen-lg content-wrapper flex-wrap justify-center" style="z-index: 2;">
+        <!-- 卡片1 生存/小游戏 -->
+        <div class="sm:text-center flex-1 min-w-[200px]">
+          <p class="text-blue-600 mt-0 mr-auto mb-4 ml-auto flex w-16 h-16 bg-blue-50 items-center justify-center rounded-full sm:w-24 sm:h-24">
+            <svg viewBox="0 0 512 512" fill="currentColor" class="w-7" xmlns="http://www.w3.org/2000/svg"><path d="m511.4 38.222c-1.109-20.338-17.284-36.511-37.622-37.621-41.038-2.242-121.342-.061-198.13 39.656-39.145 20.248-80.545 54.577-113.584 94.185-.407.488-.803.979-1.207 1.468l-74.98 5.792c-12.342.954-23.335 7.423-30.161 17.747l-51.154 77.372c-5.177 7.83-6 17.629-2.203 26.212 3.798 8.584 11.602 14.566 20.877 16.003l63.171 9.784c-.223 1.228-.447 2.455-.652 3.683-2.103 12.58 2.065 25.514 11.151 34.599l87.992 87.993c7.533 7.533 17.712 11.686 28.142 11.686 2.148 0 4.308-.177 6.458-.536 1.228-.205 2.455-.429 3.683-.652l9.784 63.172c1.437 9.275 7.419 17.08 16.001 20.877 3.571 1.58 7.35 2.36 11.112 2.36 5.283-.001 10.529-1.539 15.101-4.562l77.372-51.155c10.325-6.827 16.793-17.82 17.745-30.161l5.792-74.979c.489-.404.981-.8 1.469-1.207 39.609-33.039 73.939-74.439 94.186-113.585 39.719-76.791 41.896-157.096 39.657-198.131zm-175.394 393.037-74.011 48.933-9.536-61.565c31.28-9.197 62.223-23.927 91.702-43.66l-3.773 48.845c-.235 3.047-1.833 5.762-4.382 7.447zm-129.895-37.377-87.993-87.993c-2.245-2.246-3.283-5.401-2.774-8.44 2.616-15.643 6.681-30.534 11.713-44.562l132.028 132.028c-16.848 6.035-31.939 9.635-44.534 11.741-3.044.506-6.195-.529-8.44-2.774zm-117.923-222.269 48.844-3.773c-19.734 29.479-34.464 60.422-43.661 91.702l-61.564-9.535 48.934-74.012c1.686-2.55 4.401-4.147 7.447-4.382zm270.155 155.286c-24.233 20.213-47.756 34.833-69.438 45.412l-149.221-149.221c13.858-28.304 30.771-51.873 45.417-69.431 30.575-36.655 68.602-68.276 104.331-86.756 70.474-36.453 144.725-38.416 182.713-36.348 5.028.274 9.027 4.273 9.301 9.302 2.071 37.988.104 112.238-36.349 182.713-18.479 35.728-50.1 73.754-86.754 104.329z"></path><path d="m350.721 236.243c19.202-.002 38.412-7.312 53.031-21.931 14.166-14.165 21.966-32.999 21.966-53.031s-7.801-38.866-21.966-53.031c-29.242-29.243-76.822-29.241-106.062 0-14.166 14.165-21.967 32.999-21.967 53.031s7.802 38.866 21.967 53.031c14.622 14.622 33.822 21.933 53.031 21.931zm-31.82-106.781c8.772-8.773 20.295-13.159 31.818-13.159 11.524 0 23.047 4.386 31.819 13.159 8.499 8.499 13.179 19.799 13.179 31.818s-4.68 23.32-13.179 31.819c-17.544 17.545-46.093 17.544-63.638 0-8.499-8.499-13.18-19.799-13.18-31.818s4.682-23.32 13.181-31.819z"></path><path d="m15.301 421.938c3.839 0 7.678-1.464 10.606-4.394l48.973-48.973c5.858-5.858 5.858-15.355 0-21.213-5.857-5.858-15.355-5.858-21.213 0l-48.972 48.973c-5.858 5.858-5.858 15.355 0 21.213 2.928 2.929 6.767 4.394 10.606 4.394z"></path><path d="m119.761 392.239c-5.857-5.858-15.355-5.858-21.213 0l-94.154 94.155c-5.858 5.858-5.858 15.355 0 21.213 2.929 2.929 6.767 4.393 10.606 4.393s7.678-1.464 10.606-4.394l94.154-94.154c5.859-5.858 5.859-15.355.001-21.213z"></path><path d="m143.429 437.12-48.973 48.973c-5.858 5.858-5.858 15.355 0 21.213 2.929 2.929 6.768 4.394 10.606 4.394s7.678-1.464 10.606-4.394l48.973-48.973c5.858-5.858 5.858-15.355 0-21.213-5.857-5.858-15.355-5.858-21.212 0z"></path></svg>
+          </p>
+          <p class="leading-5 font-bold mb-2 max-sm:h-8">生存/小游戏</p>
+          <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">无需安装复杂模组/整合包，原版/少量辅助模组即可玩!</p>
+        </div>
+        <!-- 卡片2 超多建筑 -->
+        <div class="sm:text-center flex-1 min-w-[200px]">
+          <p class="text-blue-600 mt-0 mr-auto mb-4 ml-auto flex w-16 h-16 bg-blue-50 items-center justify-center rounded-full sm:w-24 sm:h-24">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"></path>
+            </svg>
+          </p>
+          <p class="leading-5 font-bold mb-2 max-sm:h-8">超多建筑</p>
+          <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">服内建筑师居多，丰富服务器风景，如黄鹤楼、橘子洲等</p>
+        </div>
+        <!-- 卡片3 锁箱+保护插件 -->
+        <div class="sm:text-center flex-1 min-w-[200px]">
+          <p class="text-blue-600 mt-0 mr-auto mb-4 ml-auto flex w-16 h-16 bg-blue-50 items-center justify-center rounded-full sm:w-24 sm:h-24">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"></path>
+            </svg>
+          </p>
+          <p class="leading-5 font-bold mb-2 max-sm:h-8">锁箱+保护插件</p>
+          <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">
+            服已安装BlockProt与CoreProtect插件。 只需下蹲点击箱子/潜影盒，即可锁住箱子内物品
+            /co lookup指令直接调用coreprotect查询最近更改
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== 新增：服务器规则 & 管理员卡片 (毛玻璃效果，两列布局) ===== -->
+      <div class="relative mt-8 max-sm:mx-5 mb-16 w-full max-w-screen-lg mx-auto content-wrapper" style="z-index: 2;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- 规则卡片 -->
+          <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200 transition-transform hover:scale-[1.02] duration-300">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+              <span class="text-blue-600 mr-2 text-2xl">📜</span> 服务器规则
+            </h3>
+            <ul class="list-decimal list-inside space-y-2 text-gray-700">
+              <li>服务器内禁止出现外挂，如有出现，将进行永久封禁并删除白名单</li>
+              <li>服务器内请勿建造包含恶意等信息的建造（Mojang官方规定）</li>
+              <li>禁止攻击服务器</li>
+            </ul>
+          </div>
+          <!-- 管理员卡片 -->
+          <div class="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-200 transition-transform hover:scale-[1.02] duration-300">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+              <span class="text-blue-600 mr-2 text-2xl">👥</span> 服务器管理员
+            </h3>
+            <ul class="list-decimal list-inside space-y-2 text-gray-700">
+              <li><span class="font-medium">Jimmy</span> - 服务器总管理员</li>
+              <li><span class="font-medium">898244</span> - 建筑师</li>
+              <li><span class="font-medium">qqrcxzsyqqcom</span> - 建筑师/指令师</li>
+              <li><span class="font-medium">PhoenixPerch</span> - 指令师</li>
+              <li><span class="font-medium">Ipong_ooop</span> - 服务器副管理员</li>
+            </ul>
+          </div>
+        </div>
+        <!-- 底部留白说明网页更高了 -->
+        <p class="text-center text-sm text-gray-500 mt-6 opacity-70">—— 遵守规则，共同建造美好家园 ——</p>
+      </div>
+      <!-- ===== 新增内容结束 ===== -->
+
+    </div> <!-- 结束相对定位容器 -->
+  </div> <!-- 结束bg-white -->
+
+  <!-- 背景轮播脚本 (自动切换，无手动点击干扰) -->
+  <script>
+    (function() {
+      // ----- 四张背景图片 (路径更新到 /images 目录) -----
+      const images = [
+        'https://starwyun.top/images/image1.png',
+        'https://starwyun.top/images/image2.png',
+        'https://starwyun.top/images/image3.png',
+        'https://starwyun.top/images/image4.png'
+      ];
+
+      const total = images.length;
+      if (total === 0) return;
+
+      const slideshow = document.getElementById('slideshow');
+      const indicator = document.getElementById('bgIndicator');
+
+      // 创建图片层
+      images.forEach((url) => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.style.backgroundImage = `url('${url}')`;
+        // 可选后备色：在图片加载失败时显示深色
+        slide.style.backgroundColor = '#2d2d2d';
+        slideshow.appendChild(slide);
+      });
+
+      const slides = document.querySelectorAll('.slide');
+
+      // 创建指示点
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('span');
+        indicator.appendChild(dot);
+      }
+      const dots = indicator.querySelectorAll('span');
+
+      let currentIndex = 0;
+      slides[currentIndex].classList.add('active');
+      if (dots.length) dots[currentIndex].classList.add('active-dot');
+
+      // 切换至下一张 (淡出当前，淡入下一张)
+      function nextSlide() {
+        slides[currentIndex].classList.remove('active');
+        if (dots.length) dots[currentIndex].classList.remove('active-dot');
+
+        currentIndex = (currentIndex + 1) % total;
+
+        slides[currentIndex].classList.add('active');
+        if (dots.length) dots[currentIndex].classList.add('active-dot');
+      }
+
+      // 每5秒切换一次 (5000ms)
+      const intervalTime = 5000;
+      let timer = setInterval(nextSlide, intervalTime);
+
+      // 当标签页不可见时暂停轮播，节省资源
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          clearInterval(timer);
+        } else {
+          timer = setInterval(nextSlide, intervalTime);
+        }
+      });
+
+      // 预加载图片（让切换更平滑）
+      images.forEach(url => {
+        const img = new Image();
+        img.src = url;
+      });
+    })();
+  </script>
+</body>
+</html>
