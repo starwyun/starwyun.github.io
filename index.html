@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <title>首页 - 星卫云服务器</title>
-  <!-- 网站图标 (favicon) - 更新路径到 /images 目录 -->
+  <!-- 网站图标 (favicon) -->
   <link rel="icon" type="image/png" href="https://starwyun.top/images/logo.png">
-  <!-- 字体与图标库 (保持原样) -->
+  <!-- 字体与图标库 -->
   <link href="https://fonts.lug.ustc.edu.cn/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.lug.ustc.edu.cn/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet">
@@ -17,13 +17,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" integrity="sha512-apX8rFN/KxJW8rniQbkvzrshQ3KvyEH+4szT3Sno5svdr6E/CP0QE862yEeLBMUnCqLko8QaugGkzvWS7uNfFQ==" crossorigin="anonymous">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <style>
-    /* ----- 背景轮播核心样式 (叠加在原有设计之上) ----- */
+    /* ----- 背景轮播核心样式 ----- */
     .slideshow {
       position: absolute;
       inset: 0;
       z-index: 0;
-      overflow: hidden;           /* 避免图片缩放时出现多余滚动 */
-      background-color: #1a1a1a;  /* 深色后备，图片加载前或出错时显示 */
+      overflow: hidden;
+      background-color: #1a1a1a;
     }
 
     .slide {
@@ -36,29 +36,26 @@
       background-position: center;
       background-repeat: no-repeat;
       opacity: 0;
-      transition: opacity 3s ease-in-out;  /* 3秒渐变，平缓自然 */
+      transition: opacity 3s ease-in-out;
     }
 
     .slide.active {
       opacity: 1;
     }
 
-    /* 半透明白色遮罩层 (让文字更易读，同时透出背景) */
     .overlay {
       position: absolute;
       inset: 0;
       background-color: rgba(255, 255, 255, 0.4);
       z-index: 1;
-      pointer-events: none;       /* 让鼠标事件穿透到内容区的链接/按钮 */
+      pointer-events: none;
     }
 
-    /* 确保内容区位于遮罩之上，且可点击 */
     .content-wrapper {
       position: relative;
       z-index: 2;
     }
 
-    /* 简易指示点 (放在遮罩之上，但不干扰点击) */
     .bg-indicator {
       position: absolute;
       bottom: 16px;
@@ -86,7 +83,7 @@
       box-shadow: 0 0 10px white;
     }
 
-    /* 右上角导航菜单 - 使用nav标签和正确的定位 */
+    /* 右上角导航菜单 */
     nav {
       position: fixed;
       top: 20px;
@@ -116,7 +113,6 @@
       color: white;
     }
 
-    /* 移动端适配 */
     @media (max-width: 640px) {
       nav {
         top: 10px;
@@ -131,7 +127,7 @@
   </style>
 </head>
 <body>
-  <!-- 右上角导航菜单 - 使用nav标签 -->
+  <!-- 右上角导航菜单 -->
   <nav>
     <a href="https://starwyun.top/">首页</a>
     <a href="https://starwyun.top/intro.html">服务器简介</a>
@@ -139,52 +135,46 @@
     <a href="https://starwyun.top/activity.html">精彩活动</a>
   </nav>
 
-  <!-- 左上角 Logo + 黑色斜体文字 (固定定位，不遮挡点击) -->
+  <!-- 左上角 Logo + 黑色斜体文字 -->
   <div style="position: fixed; top: 20px; left: 20px; z-index: 100; display: flex; flex-direction: column; align-items: center; pointer-events: none;">
     <img src="https://starwyun.top/images/logo.png" alt="星卫云服务器" style="width: 60px; height: auto;">
     <span style="color: black; font-style: italic; font-weight: 500; font-size: 16px; margin-top: 4px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">星卫云</span>
   </div>
 
-  <!-- 最外层背景白色 (后备色，仅在内容区外显示) -->
+  <!-- 最外层背景白色 -->
   <div class="bg-white">
-    <!-- 相对定位容器：作为背景轮播的锚点 (原结构中的第一个relative) -->
     <div class="relative mr-auto ml-auto w-full flex flex-col items-center">
       
-      <!-- ===== 1. 背景轮播图层 (4张图片，路径更新到 /images 目录) ===== -->
+      <!-- 背景轮播图层 -->
       <div class="slideshow" id="slideshow"></div>
-      
-      <!-- 半透明白色遮罩层 (保持文字对比度) -->
       <div class="overlay"></div>
-      
-      <!-- 简易指示点 (显示当前图片序号，纯装饰) -->
       <div class="bg-indicator" id="bgIndicator"></div>
-      <!-- ==================================== -->
 
-      <!-- 页面主要内容 (标题与简介) -->
+      <!-- 页面主要内容 (标题与简介) - 修改了宣传语 -->
       <div class="relative mt-0 max-sm:mx-5 mb-10 ml-auto max-w-xl md:mx-auto sm:text-center lg:max-w-2xl md:mb-12 content-wrapper" style="z-index: 2;">
         <div class="mt-0 mr-auto mb-6 ml-auto text-3xl font-bold leading-none tracking-tight text-gray-900 max-w-lg font-sans sm:text-4xl md:mx-auto">
           <div class="pt-10 relative">
             <p class="font-bold text-3xl inline tracking-tight relative font-sans sm:text-4xl sm:leading-none">星卫云服务器</p>
           </div>
         </div>
-        <p class="text-gray-700 text-base md:text-lg">想要原版纯净生存/生电/小游戏体验?星卫云，启动!<br>
-        <p>Java版支持1.8到1.21.X（推荐1.21+），无需模组，离线账号也能进，支持基岩版互通</p>
-        <span>进群后获得连接地址：</span><a href="https://qm.qq.com/q/AmlV46PJ9m" target="_blank" class="text-blue-600 underline">1027127033</a>
-        <p>服务器现启用白名单，进群后，在群内发送“@HuHoBot /添加白名单 &lt;玩家名&gt;”即可</p>
+        <!-- 修改后的顶部宣传语 -->
+        <p class="text-gray-700 text-base md:text-lg">✨ 欢迎来到星卫云！原版纯净生存/生电/小游戏服务器<br>
+        <p>⚡ Java版支持 1.8 至 1.21+（推荐1.21+），无需模组，离线账号也可畅玩，基岩版互通！</p>
+        <span>📢 进群后获取连接地址：</span><a href="https://qm.qq.com/q/AmlV46PJ9m" target="_blank" class="text-blue-600 underline">1027127033</a>
+        <p>🔐 服务器已启用白名单，进群后发送“@HuHoBot /添加白名单 &lt;玩家名&gt;”即可</p>
       </div>
 
-      <!-- 三个特性卡片区域 -->
+      <!-- 三个特性卡片区域 - 修改了描述文字 -->
       <div class="relative mt-0 max-sm:mx-5 mb-10 gap-8 row-gap-8 flex sm:max-w-xl md:max-w-screen-lg content-wrapper flex-wrap justify-center" style="z-index: 2;">
-        <!-- 卡片1 生存/小游戏 - 使用自定义SVG图标 -->
+        <!-- 卡片1 生存/小游戏 - 新描述 -->
         <div class="sm:text-center flex-1 min-w-[200px]">
           <p class="text-blue-600 mt-0 mr-auto mb-4 ml-auto flex w-16 h-16 bg-blue-50 items-center justify-center rounded-full sm:w-24 sm:h-24">
-            <!-- 引用你自己的 SVG 文件，并设置合适的大小 -->
-            <img src="https://starwyun.top/images/pickaxe.svg" class="w-7 h-7">
+            <img src="https://starwyun.top/images/pickaxe.svg" class="w-6 h-6">
           </p>
           <p class="leading-5 font-bold mb-2 max-sm:h-8">生存/小游戏</p>
-          <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">无需安装复杂模组/整合包，原版/少量辅助模组即可玩!</p>
+          <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">🎮 原汁原味的生存体验，无需安装任何模组/整合包，即进即玩！支持多种小游戏玩法，乐趣无穷。</p>
         </div>
-        <!-- 卡片2 超多建筑 -->
+        <!-- 卡片2 超多建筑 - 新描述 -->
         <div class="sm:text-center flex-1 min-w-[200px]">
           <p class="text-blue-600 mt-0 mr-auto mb-4 ml-auto flex w-16 h-16 bg-blue-50 items-center justify-center rounded-full sm:w-24 sm:h-24">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -192,9 +182,9 @@
             </svg>
           </p>
           <p class="leading-5 font-bold mb-2 max-sm:h-8">超多建筑</p>
-          <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">服内建筑师居多，丰富服务器风景，如黄鹤楼、橘子洲等</p>
+          <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">🏗️ 服内建筑师云集，打造了黄鹤楼、橘子洲等众多精美建筑，等你来打卡！</p>
         </div>
-        <!-- 卡片3 锁箱+保护插件 -->
+        <!-- 卡片3 锁箱+保护插件 - 新描述（修正了标点） -->
         <div class="sm:text-center flex-1 min-w-[200px]">
           <p class="text-blue-600 mt-0 mr-auto mb-4 ml-auto flex w-16 h-16 bg-blue-50 items-center justify-center rounded-full sm:w-24 sm:h-24">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -203,13 +193,12 @@
           </p>
           <p class="leading-5 font-bold mb-2 max-sm:h-8">锁箱+保护插件</p>
           <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">
-            服已安装BlockProt与CoreProtect插件。 只需下蹲点击箱子/潜影盒，即可锁住箱子内物品
-            /co lookup指令直接调用coreprotect查询最近更改
+            🔒 多重保护：BlockProt/BlockLocker上锁，CoreProtect防熊。下蹲右击方块或放置告示牌即可上锁，/co lookup 随时查询记录。
           </p>
         </div>
       </div>
 
-      <!-- ===== 新增：服务器规则 & 管理员卡片 (毛玻璃效果，两列布局) ===== -->
+      <!-- 服务器规则 & 管理员卡片 (保持不变) -->
       <div class="relative mt-8 max-sm:mx-5 mb-16 w-full max-w-screen-lg mx-auto content-wrapper" style="z-index: 2;">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- 规则卡片 -->
@@ -237,18 +226,15 @@
             </ul>
           </div>
         </div>
-        <!-- 底部留白说明网页更高了 -->
         <p class="text-center text-sm text-gray-500 mt-6 opacity-70">—— 遵守规则，共同建造美好家园 ——</p>
       </div>
-      <!-- ===== 新增内容结束 ===== -->
 
     </div> <!-- 结束相对定位容器 -->
   </div> <!-- 结束bg-white -->
 
-  <!-- 背景轮播脚本 (自动切换，无手动点击干扰) -->
+  <!-- 背景轮播脚本 (自动切换) -->
   <script>
     (function() {
-      // ----- 四张背景图片 (路径更新到 /images 目录) -----
       const images = [
         'https://starwyun.top/images/image1.png',
         'https://starwyun.top/images/image2.png',
@@ -262,19 +248,16 @@
       const slideshow = document.getElementById('slideshow');
       const indicator = document.getElementById('bgIndicator');
 
-      // 创建图片层
       images.forEach((url) => {
         const slide = document.createElement('div');
         slide.className = 'slide';
         slide.style.backgroundImage = `url('${url}')`;
-        // 可选后备色：在图片加载失败时显示深色
         slide.style.backgroundColor = '#2d2d2d';
         slideshow.appendChild(slide);
       });
 
       const slides = document.querySelectorAll('.slide');
 
-      // 创建指示点
       for (let i = 0; i < total; i++) {
         const dot = document.createElement('span');
         indicator.appendChild(dot);
@@ -285,7 +268,6 @@
       slides[currentIndex].classList.add('active');
       if (dots.length) dots[currentIndex].classList.add('active-dot');
 
-      // 切换至下一张 (淡出当前，淡入下一张)
       function nextSlide() {
         slides[currentIndex].classList.remove('active');
         if (dots.length) dots[currentIndex].classList.remove('active-dot');
@@ -296,11 +278,9 @@
         if (dots.length) dots[currentIndex].classList.add('active-dot');
       }
 
-      // 每5秒切换一次 (5000ms)
       const intervalTime = 5000;
       let timer = setInterval(nextSlide, intervalTime);
 
-      // 当标签页不可见时暂停轮播，节省资源
       document.addEventListener('visibilitychange', function() {
         if (document.hidden) {
           clearInterval(timer);
@@ -309,7 +289,6 @@
         }
       });
 
-      // 预加载图片（让切换更平滑）
       images.forEach(url => {
         const img = new Image();
         img.src = url;
@@ -317,6 +296,4 @@
     })();
   </script>
 </body>
-
 </html>
-
