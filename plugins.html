@@ -80,7 +80,7 @@
       box-shadow: 0 0 10px white;
     }
 
-    /* 右上角导航菜单 - 插件功能放最后 */
+    /* 右上角导航菜单 */
     nav {
       position: fixed;
       top: 20px;
@@ -261,7 +261,7 @@
   <div class="overlay"></div>
   <div class="bg-indicator" id="bgIndicator"></div>
 
-  <!-- 右上角导航菜单 - 顺序：首页、服务器简介、联系我们、精彩活动、插件功能 -->
+  <!-- 右上角导航菜单 -->
   <nav>
     <a href="https://starwyun.top/">首页</a>
     <a href="https://starwyun.top/intro">服务器简介</a>
@@ -348,7 +348,7 @@
       setInterval(nextSlide, 5000);
       images.forEach(url => { new Image().src = url; });
 
-      // ----- 插件数据 (根据最新分类整理) -----
+      // ----- 插件数据 -----
       const plugins = [
         // 保护/安全类
         { name: 'AntiPopup', category: 'protect', desc: '移除 1.19+ 客户端的聊天报告弹窗，防止玩家因聊天内容被举报 ' },
@@ -368,7 +368,7 @@
         { name: 'ChainMining', category: 'gameplay', desc: '连锁挖矿，支持自定义方块和工具，提高采集效率 ' },
         { name: 'CraftEngine', category: 'gameplay', desc: '服务端自定义物品/方块/家具框架，无需客户端模组 ' },
         { name: 'CustomNPCs', category: 'gameplay', desc: '自定义NPC，创建任务、商店、剧情角色' },
-        { name: 'DuelTime', category: 'gameplay', desc: '玩家决斗系统，可押注经济' },          // 从economy移入
+        { name: 'DuelTime', category: 'gameplay', desc: '玩家决斗系统，可押注经济' },
         { name: 'ExecutableItems', category: 'gameplay', desc: '可执行物品，赋予物品特殊技能和效果' },
         { name: 'FlyPlus', category: 'gameplay', desc: '飞行插件，可控制飞行速度、防飞行挂机' },
         { name: 'GSit', category: 'gameplay', desc: '动作插件，支持坐下、躺下、翻滚' },
@@ -394,11 +394,11 @@
         { name: 'MenuReport', category: 'chat', desc: 'GUI菜单举报系统，玩家可举报违规行为' },
         { name: 'OverhedMessage', category: 'chat', desc: '头顶消息显示，展示玩家自定义文字' },
         { name: 'SimplePlayTime', category: 'chat', desc: '统计玩家在线时长' },
-        { name: 'TAB', category: 'chat', desc: '玩家列表（Tab键）格式化，可显示前缀后缀、动画' },  // 从admin移入
-        { name: 'PlayerTitle', category: 'chat', desc: '玩家称号系统，可自定义称号展示' },          // 从gameplay移入
+        { name: 'TAB', category: 'chat', desc: '玩家列表（Tab键）格式化，可显示前缀后缀、动画' },
+        { name: 'PlayerTitle', category: 'chat', desc: '玩家称号系统，可自定义称号展示' },
         { name: 'TntChat', category: 'chat', desc: '聊天管理/过滤/格式优化' },
 
-        // 工具/辅助类 (包含重新分类的插件)
+        // 工具/辅助类
         { name: 'Chunky', category: 'utility', desc: '预生成区块工具，降低服务器跑图卡顿 ' },
         { name: 'Geyser', category: 'utility', desc: '互通核心，让基岩版玩家加入Java版服务器' },
         { name: 'GWarp', category: 'utility', desc: '公共传送点系统' },
@@ -407,20 +407,20 @@
         { name: 'InventorySee', category: 'utility', desc: '管理员查看/管理玩家背包' },
         { name: 'LiteSignIn', category: 'utility', desc: '轻量签到插件，每日奖励' },
         { name: 'Metro', category: 'utility', desc: '地铁/交通系统插件' },
-        { name: 'MiniMOTD', category: 'utility', desc: '自定义服务器MOTD（服务器列表描述）' },      // 从admin移入
+        { name: 'MiniMOTD', category: 'utility', desc: '自定义服务器MOTD（服务器列表描述）' },
         { name: 'Multiverse-Core', category: 'utility', desc: '多世界管理核心' },
-        { name: 'nightcore', category: 'utility', desc: '优化服务器性能的核心管理工具' },          // 从admin移入
-        { name: 'ProtocolLib', category: 'utility', desc: '协议库，众多插件的依赖前置' },          // 从admin移入
+        { name: 'nightcore', category: 'utility', desc: '优化服务器性能的核心管理工具' },
+        { name: 'ProtocolLib', category: 'utility', desc: '协议库，众多插件的依赖前置' },
         { name: 'RecipeCreateX', category: 'utility', desc: '自定义合成配方' },
         { name: 'SCore', category: 'utility', desc: '前置核心库' },
-        { name: 'SkinsRestorer', category: 'utility', desc: '离线皮肤修复，让正版/盗版玩家都能显示皮肤' }, // 从protect移入
-        { name: 'floodgate', category: 'utility', desc: 'Geyser配套插件，让基岩版玩家直接进入无需正版验证' }, // 从protect移入
-        { name: 'spark', category: 'utility', desc: '性能分析插件，查看CPU/TPS/内存占用' },        // 从admin移入
+        { name: 'SkinsRestorer', category: 'utility', desc: '离线皮肤修复，让正版/盗版玩家都能显示皮肤' },
+        { name: 'floodgate', category: 'utility', desc: 'Geyser配套插件，让基岩版玩家直接进入无需正版验证' },
+        { name: 'spark', category: 'utility', desc: '性能分析插件，查看CPU/TPS/内存占用' },
         { name: 'ViaBackwards', category: 'utility', desc: '低版本客户端兼容高版本服务端' },
         { name: 'ViaVersion', category: 'utility', desc: '版本兼容核心，支持多版本客户端' },
         { name: 'WorldEdit', category: 'utility', desc: '创世神，建筑辅助工具' },
         { name: 'WorldListTrashCan', category: 'utility', desc: '垃圾桶/清理功能' },
-        { name: 'PlaceholderAPI', category: 'utility', desc: '变量前置库，所有变量插件的依赖' }     // 从chat移入
+        { name: 'PlaceholderAPI', category: 'utility', desc: '变量前置库，所有变量插件的依赖' }
       ];
 
       // 渲染插件网格
