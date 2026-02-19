@@ -112,6 +112,10 @@
       background: #2563eb;
       color: white;
     }
+    nav a.active {
+      background: #2563eb;
+      color: white;
+    }
 
     @media (max-width: 640px) {
       nav {
@@ -152,23 +156,22 @@
       <div class="overlay"></div>
       <div class="bg-indicator" id="bgIndicator"></div>
 
-      <!-- 页面主要内容 (标题与简介) - 修改了宣传语 -->
+      <!-- 页面主要内容 -->
       <div class="relative mt-0 max-sm:mx-5 mb-10 ml-auto max-w-xl md:mx-auto sm:text-center lg:max-w-2xl md:mb-12 content-wrapper" style="z-index: 2;">
         <div class="mt-0 mr-auto mb-6 ml-auto text-3xl font-bold leading-none tracking-tight text-gray-900 max-w-lg font-sans sm:text-4xl md:mx-auto">
           <div class="pt-10 relative">
             <p class="font-bold text-3xl inline tracking-tight relative font-sans sm:text-4xl sm:leading-none">星卫云服务器</p>
           </div>
         </div>
-        <!-- 修改后的顶部宣传语 -->
         <p class="text-gray-700 text-base md:text-lg">✨ 欢迎来到星卫云！原版纯净生存/生电/小游戏服务器<br>
         <p>⚡ Java版支持 1.8 至 1.21+（推荐1.21+），无需模组，离线账号也可畅玩，基岩版互通！</p>
         <span>📢 进群后获取连接地址：</span><a href="https://qm.qq.com/q/AmlV46PJ9m" target="_blank" class="text-blue-600 underline">1027127033</a>
         <p>🔐 服务器已启用白名单，进群后发送“@HuHoBot /添加白名单 &lt;玩家名&gt;”即可</p>
       </div>
 
-      <!-- 三个特性卡片区域 - 修改了描述文字 -->
+      <!-- 三个特性卡片区域 -->
       <div class="relative mt-0 max-sm:mx-5 mb-10 gap-8 row-gap-8 flex sm:max-w-xl md:max-w-screen-lg content-wrapper flex-wrap justify-center" style="z-index: 2;">
-        <!-- 卡片1 生存/小游戏 - 新描述 -->
+        <!-- 卡片1 生存/小游戏 -->
         <div class="sm:text-center flex-1 min-w-[200px]">
           <p class="text-blue-600 mt-0 mr-auto mb-4 ml-auto flex w-16 h-16 bg-blue-50 items-center justify-center rounded-full sm:w-24 sm:h-24">
             <img src="https://starwyun.top/images/pickaxe.svg" class="w-6 h-6">
@@ -176,7 +179,7 @@
           <p class="leading-5 font-bold mb-2 max-sm:h-8">生存/小游戏</p>
           <p class="text-gray-900 max-w-md sm:mx-auto mb-3 sm:text-base max-sm:text-sm">🎮 原汁原味的生存体验，无需安装任何模组/整合包，即进即玩！支持多种小游戏玩法，乐趣无穷。</p>
         </div>
-        <!-- 卡片2 超多建筑 - 新描述 -->
+        <!-- 卡片2 超多建筑 -->
         <div class="sm:text-center flex-1 min-w-[200px]">
           <p class="text-blue-600 mt-0 mr-auto mb-4 ml-auto flex w-16 h-16 bg-blue-50 items-center justify-center rounded-full sm:w-24 sm:h-24">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -188,7 +191,7 @@
         </div>
       </div>
 
-      <!-- 服务器规则 & 管理员卡片 (保持不变) -->
+      <!-- 服务器规则 & 管理员卡片 -->
       <div class="relative mt-8 max-sm:mx-5 mb-16 w-full max-w-screen-lg mx-auto content-wrapper" style="z-index: 2;">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- 规则卡片 -->
@@ -222,7 +225,7 @@
     </div> <!-- 结束相对定位容器 -->
   </div> <!-- 结束bg-white -->
 
-  <!-- 背景轮播脚本 (自动切换) -->
+  <!-- 背景轮播脚本 -->
   <script>
     (function() {
       const images = [
