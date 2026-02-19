@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" integrity="sha512-apX8rFN/KxJW8rniQbkvzrshQ3KvyEH+4szT3Sno5svdr6E/CP0QE862yEeLBMUnCqLko8QaugGkzvWS7uNfFQ==" crossorigin="anonymous">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <style>
-    /* ----- 背景轮播核心样式 (与首页完全一致) ----- */
+    /* ----- 背景轮播核心样式 ----- */
     .slideshow {
       position: absolute;
       inset: 0;
@@ -83,7 +83,7 @@
       box-shadow: 0 0 10px white;
     }
 
-    /* 右上角导航菜单 (与首页一致) */
+    /* 右上角导航菜单 */
     nav {
       position: fixed;
       top: 20px;
@@ -112,6 +112,10 @@
       background: #2563eb;
       color: white;
     }
+    nav a.active {
+      background: #2563eb;
+      color: white;
+    }
 
     @media (max-width: 640px) {
       nav {
@@ -125,7 +129,7 @@
       }
     }
 
-    /* 活动卡片样式 (与简介卡类似，但可适应列表) */
+    /* 活动卡片样式 */
     .activity-card {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(12px);
@@ -191,7 +195,7 @@
   </style>
 </head>
 <body>
-  <!-- 右上角导航菜单 (与首页一致) -->
+  <!-- 右上角导航菜单 -->
   <nav>
     <a href="https://starwyun.top/">首页</a>
     <a href="https://starwyun.top/intro">服务器简介</a>
@@ -251,7 +255,7 @@
     </div>
   </div>
 
-  <!-- 背景轮播脚本 (与首页完全相同) -->
+  <!-- 背景轮播脚本 -->
   <script>
     (function() {
       const images = [
