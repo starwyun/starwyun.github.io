@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" integrity="sha512-apX8rFN/KxJW8rniQbkvzrshQ3KvyEH+4szT3Sno5svdr6E/CP0QE862yEeLBMUnCqLko8QaugGkzvWS7uNfFQ==" crossorigin="anonymous">
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <style>
-    /* ----- 背景轮播核心样式 (与首页完全一致) ----- */
+    /* ----- 背景轮播核心样式 ----- */
     .slideshow {
       position: absolute;
       inset: 0;
@@ -83,7 +83,7 @@
       box-shadow: 0 0 10px white;
     }
 
-    /* 右上角导航菜单 (与首页一致，无登录注册) */
+    /* 右上角导航菜单 */
     nav {
       position: fixed;
       top: 20px;
@@ -112,6 +112,10 @@
       background: #2563eb;
       color: white;
     }
+    nav a.active {
+      background: #2563eb;
+      color: white;
+    }
 
     @media (max-width: 640px) {
       nav {
@@ -133,7 +137,7 @@
       padding: 2.5rem;
       width: 100%;
       max-width: 800px;
-      margin: 5rem auto 2rem;  /* 上边距从2rem增加到5rem，避免被导航栏遮挡 */
+      margin: 5rem auto 2rem;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.5);
     }
@@ -157,7 +161,7 @@
   </style>
 </head>
 <body>
-  <!-- 右上角导航菜单 (与首页一致) -->
+  <!-- 右上角导航菜单 -->
   <nav>
     <a href="https://starwyun.top/">首页</a>
     <a href="https://starwyun.top/intro" class="active">服务器简介</a>
@@ -182,7 +186,7 @@
       <div class="overlay"></div>
       <div class="bg-indicator" id="bgIndicator"></div>
 
-      <!-- 简介卡片 - 增加了顶部外边距，避免遮挡 -->
+      <!-- 简介卡片 -->
       <div class="intro-card content-wrapper" style="z-index: 2;">
         <h1 class="intro-title">✨ 星卫云 · 服务器简介 ✨</h1>
         <div class="intro-text">
@@ -203,7 +207,7 @@
     </div>
   </div>
 
-  <!-- 背景轮播脚本 (与首页完全相同) -->
+  <!-- 背景轮播脚本 -->
   <script>
     (function() {
       const images = [
