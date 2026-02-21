@@ -128,6 +128,16 @@
         font-size: 13px;
       }
     }
+
+    /* 主要内容区整体下移，避免被固定导航栏遮挡 */
+    .main-container {
+      padding-top: 55px; /* 为固定导航栏和logo留出空间 */
+    }
+    @media (max-width: 640px) {
+      .main-container {
+        padding-top: 70px; /* 移动端适当减小 */
+      }
+    }
   </style>
 </head>
 <body>
@@ -149,7 +159,8 @@
 
   <!-- 最外层背景白色 -->
   <div class="bg-white">
-    <div class="relative mr-auto ml-auto w-full flex flex-col items-center">
+    <!-- 添加 main-container 类实现整体下移，背景轮播仍覆盖全区域 -->
+    <div class="relative mr-auto ml-auto w-full flex flex-col items-center main-container">
       
       <!-- 背景轮播图层 -->
       <div class="slideshow" id="slideshow"></div>
@@ -222,7 +233,7 @@
         <p class="text-center text-sm text-gray-500 mt-6 opacity-70">—— 遵守规则，共同建造美好家园 ——</p>
       </div>
 
-    </div> <!-- 结束相对定位容器 -->
+    </div> <!-- 结束相对定位容器（已添加 main-container 类） -->
   </div> <!-- 结束bg-white -->
 
   <!-- 背景轮播脚本 -->
