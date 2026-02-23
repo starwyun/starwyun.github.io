@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>赞助 - 星卫云服务器</title>
+  <!-- 网站图标 (favicon) -->
+  <link rel="icon" type="image/png" href="https://starwyun.top/images/logo.png">
+  <!-- 字体与图标库 -->
+  <link href="https://fonts.lug.ustc.edu.cn/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.lug.ustc.edu.cn/css2?family=Nanum+Gothic&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.lug.ustc.edu.cn/css2?family=Nunito+Sans&amp;family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" integrity="sha512-apX8rFN/KxJW8rniQbkvzrshQ3KvyEH+4szT3Sno5svdr6E/CP0QE862yEeLBMUnCqLko8QaugGkzvWS7uNfFQ==" crossorigin="anonymous">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style>
+    /* ----- 背景轮播核心样式 (与首页一致) ----- */
+    .slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      background-color: #1a1a1a;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 3s ease-in-out;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.4);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .bg-indicator {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      gap: 10px;
+      padding: 6px 14px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(3px);
+      border-radius: 40px;
+      pointer-events: none;
+    }
+    .bg-indicator span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      transition: all 0.3s;
+    }
+    .bg-indicator span.active-dot {
+      background: white;
+      transform: scale(1.3);
+      box-shadow: 0 0 10px white;
+    }
+
+    /* 右上角导航菜单 - 新增“赞助”选项 */
+    nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    nav a {
+      color: #1e293b;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 30px;
+      transition: all 0.2s;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+    nav a:hover {
+      background: #2563eb;
+      color: white;
+    }
+    nav a.active {
+      background: #2563eb;
+      color: white;
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        top: 10px;
+        right: 10px;
+        padding: 4px 8px;
+        flex-wrap: wrap;
+        max-width: calc(100% - 80px);
+      }
+      nav a {
+        padding: 4px 10px;
+        font-size: 13px;
+      }
+    }
+
+    /* 左上角 Logo (固定) */
+    .logo-fixed {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    /* 主要内容区域 */
+    .main-content {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      background: transparent;
+      padding-top: 80px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    @media (max-width: 640px) {
+      .main-content {
+        padding-top: 70px;
+      }
+    }
+
+    /* 赞助卡片容器 */
+    .sponsor-container {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    .sponsor-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      text-align: center;
+    }
+
+    .sponsor-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+
+    .sponsor-subtitle {
+      font-size: 1.2rem;
+      color: #334155;
+      margin-bottom: 2.5rem;
+    }
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .payment-item {
+      background: rgba(255,255,255,0.6);
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .payment-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .payment-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    .wx-icon { color: #07C160; }
+    .zfb-icon { color: #1677FF; }
+
+    .payment-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+
+    /* 二维码图片容器 - 根据图片尺寸固定宽高 */
+    .qr-image {
+      width: 207px;
+      margin: 1rem auto;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .qr-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    /* 微信二维码高度281px，支付宝310px，通过内联样式或单独类控制 */
+    .qr-wechat {
+      height: 281px;
+    }
+    .qr-alipay {
+      height: 310px;
+    }
+
+    .payment-note {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-top: 0.5rem;
+    }
+
+    .thank-note {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      font-size: 1.1rem;
+      color: #475569;
+    }
+
+    @media (max-width: 640px) {
+      .payment-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .qr-image {
+        width: 180px;
+      }
+      .qr-wechat { height: 244px; } /* 等比例缩放 */
+      .qr-alipay { height: 269px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 固定背景轮播图层 -->
+  <div class="slideshow" id="slideshow"></div>
+  <div class="overlay"></div>
+  <div class="bg-indicator" id="bgIndicator"></div>
+
+  <!-- 右上角导航菜单 - 新增“赞助”选项 -->
+  <nav>
+    <a href="https://starwyun.top/">首页</a>
+    <a href="https://starwyun.top/intro">服务器简介</a>
+    <a href="https://starwyun.top/contact">联系我们</a>
+    <a href="https://starwyun.top/activity">精彩活动</a>
+    <a href="https://starwyun.top/plugins">插件功能</a>
+    <a href="https://starwyun.top/download">资源下载</a>
+    <a href="https://starwyun.top/sponsor" class="active">赞助</a>
+  </nav>
+
+  <!-- 左上角 Logo (固定) -->
+  <div class="logo-fixed">
+    <img src="https://starwyun.top/images/logo.png" alt="星卫云服务器" style="width: 60px; height: auto;">
+    <span style="color: black; font-style: italic; font-weight: 500; font-size: 16px; margin-top: 4px; text-shadow: 0 1px 2px rgba(255,255,255,0.5);">星卫云</span>
+  </div>
+
+  <!-- 主要内容区 -->
+  <div class="main-content">
+    <div class="sponsor-container content-wrapper">
+      <div class="sponsor-card">
+        <h1 class="sponsor-title">💰 赞助支持星卫云</h1>
+        <p class="sponsor-subtitle">您的每一份心意，都是服务器持续运营的动力 ❤️</p>
+        
+        <!-- 双支付方式展示 -->
+        <div class="payment-grid">
+          <!-- 微信支付 -->
+          <div class="payment-item">
+            <div class="payment-icon wx-icon">
+              <i class="fab fa-weixin"></i>
+            </div>
+            <div class="payment-title">微信支付</div>
+            
+            <!-- 微信二维码 (尺寸 207x281) -->
+            <div class="qr-image qr-wechat">
+              <img src="https://starwyun.top/images/wx.png" alt="微信支付二维码">
+            </div>
+            
+            <div class="payment-note">使用微信扫一扫赞助</div>
+          </div>
+
+          <!-- 支付宝支付 -->
+          <div class="payment-item">
+            <div class="payment-icon zfb-icon">
+              <i class="fab fa-alipay"></i>
+            </div>
+            <div class="payment-title">支付宝</div>
+            
+            <!-- 支付宝二维码 (尺寸 207x310) -->
+            <div class="qr-image qr-alipay">
+              <img src="https://starwyun.top/images/zfb.png" alt="支付宝支付二维码">
+            </div>
+            
+            <div class="payment-note">使用支付宝扫一扫赞助</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 背景轮播脚本 -->
+  <script>
+    (function() {
+      const images = [
+        'https://starwyun.top/images/image1.png',
+        'https://starwyun.top/images/image2.png',
+        'https://starwyun.top/images/image3.png',
+        'https://starwyun.top/images/image4.png'
+      ];
+
+      const total = images.length;
+      const slideshow = document.getElementById('slideshow');
+      const indicator = document.getElementById('bgIndicator');
+
+      images.forEach((url) => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.style.backgroundImage = `url('${url}')`;
+        slide.style.backgroundColor = '#2d2d2d';
+        slideshow.appendChild(slide);
+      });
+
+      const slides = document.querySelectorAll('.slide');
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('span');
+        indicator.appendChild(dot);
+      }
+      const dots = indicator.querySelectorAll('span');
+
+      let currentIndex = 0;
+      slides[currentIndex].classList.add('active');
+      dots[currentIndex]?.classList.add('active-dot');
+
+      function nextSlide() {
+        slides[currentIndex].classList.remove('active');
+        dots[currentIndex]?.classList.remove('active-dot');
+        currentIndex = (currentIndex + 1) % total;
+        slides[currentIndex].classList.add('active');
+        dots[currentIndex]?.classList.add('active-dot');
+      }
+      setInterval(nextSlide, 5000);
+      images.forEach(url => { new Image().src = url; });
+    })();
+  </script>
+</body>
+</html>
