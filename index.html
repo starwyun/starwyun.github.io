@@ -138,9 +138,52 @@
         padding-top: 70px; /* 移动端适当减小 */
       }
     }
+
+    /* ---------- 新增：右上角提示 toast 样式 ---------- */
+    #copy-toast {
+      visibility: hidden;
+      min-width: 200px;
+      background-color: #333;
+      color: #000000;
+      text-align: center;
+      border-radius: 6px;
+      padding: 12px 20px;
+      position: fixed;
+      z-index: 999;
+      right: 20px;
+      top: 80px; /* 避开导航菜单 */
+      font-size: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.3s, visibility 0.3s;
+      pointer-events: none; /* 让提示不阻挡点击 */
+    }
+    #copy-toast.show {
+      visibility: visible;
+      opacity: 1;
+    }
+    #copy-toast.success {
+      background-color: #ffffff;
+    }
+    #copy-toast.error {
+      background-color: #ffffff;
+    }
+    /* 移动端适配 */
+    @media (max-width: 640px) {
+      #copy-toast {
+        right: 10px;
+        top: 70px;
+        min-width: 160px;
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- 新增：复制提示 toast 容器 -->
+  <div id="copy-toast"></div>
+
   <!-- 右上角导航菜单 -->
   <nav>
     <a href="https://starwyun.top/" class="active">首页</a>
@@ -176,8 +219,8 @@
         </div>
         <p class="text-gray-700 text-base md:text-lg">✨ 欢迎来到星卫云！原版纯净生存/生电/小游戏服务器<br>
         <p>⚡ Java版支持 1.8 至 1.21+（推荐1.21+），无需模组，离线账号也可畅玩，基岩版互通！</p>
-        <span>📢 进群后获取连接地址：</span><a href="https://qm.qq.com/q/AmlV46PJ9m" target="_blank" class="text-blue-600 underline">1027127033</a>
-        <p>🔐 服务器已启用白名单，进群后发送“@HuHoBot /添加白名单 &lt;玩家名&gt;”即可</p>
+        <!-- 修改点：服务器连接地址改为可点击复制 -->
+        <span>服务器连接地址：<span class="copy-address" style="cursor: pointer; color: #2563eb; text-decoration: underline;" onclick="copyServerAddress()">mc.starwyun.top（点击复制）</span></span>
       </div>
 
       <!-- 三个特性卡片区域 -->
@@ -299,6 +342,62 @@
       });
     })();
   </script>
+
+  <!-- 修改：点击复制服务器地址功能，使用右上角toast提示 -->
+  <script>
+    // 显示 toast 提示的函数
+    let toastTimer = null;
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('copy-toast');
+      if (!toast) return;
+
+      // 清除之前的定时器
+      if (toastTimer) {
+        clearTimeout(toastTimer);
+        toastTimer = null;
+      }
+
+      // 设置文本和样式
+      toast.textContent = message;
+      toast.classList.remove('success', 'error', 'show');
+      if (type === 'success') {
+        toast.classList.add('success');
+      } else {
+        toast.classList.add('error');
+      }
+      toast.classList.add('show');
+
+      // 2秒后隐藏
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+        toastTimer = null;
+      }, 2000);
+    }
+
+    function copyServerAddress() {
+      const text = "mc.starwyun.top";  // 要复制的地址
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        // 现代浏览器：使用 Clipboard API
+        navigator.clipboard.writeText(text)
+          .then(() => showToast('✅ 复制成功！', 'success'))
+          .catch(err => showToast('❌ 复制失败：' + err, 'error'));
+      } else {
+        // 降级方案：使用 document.execCommand('copy')
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          const successful = document.execCommand('copy');
+          if (successful) showToast('✅ 复制成功！', 'success');
+          else showToast('❌ 复制失败，请手动复制。', 'error');
+        } catch (err) {
+          showToast('❌ 复制失败：' + err, 'error');
+        }
+        document.body.removeChild(textarea);
+      }
+    }
+  </script>
 </body>
 </html>
-
